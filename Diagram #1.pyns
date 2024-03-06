@@ -1,0 +1,33 @@
+# PynSource Version 1.2
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin. Comments are saved.'}
+{'type':'umlshape', 'id':'Name', 'x':176, 'y':13, 'width':98, 'height':106, 'attrs': 'value', 'meths': '__getitem__|__init__'}
+{'type':'umlshape', 'id':'Phone', 'x':37, 'y':13, 'width':98, 'height':122, 'attrs': 'value|values', 'meths': '__getitem__|__init__'}
+{'type':'umlshape', 'id':'Address', 'x':304, 'y':14, 'width':98, 'height':106, 'attrs': 'value', 'meths': '__getitem__|__init__'}
+{'type':'umlshape', 'id':'Birthday', 'x':465, 'y':15, 'width':98, 'height':106, 'attrs': 'value', 'meths': '__getitem__|__init__'}
+{'type':'umlshape', 'id':'Email', 'x':608, 'y':18, 'width':98, 'height':106, 'attrs': 'value', 'meths': '__getitem__|__init__'}
+{'type':'umlshape', 'id':'Record', 'x':634, 'y':195, 'width':74, 'height':170, 'attrs': 'address|birthday|email|name|phones', 'meths': '__init__|__str__'}
+{'type':'umlshape', 'id':'Bot', 'x':894, 'y':183, 'width':74, 'height':122, 'attrs': 'book|notebook', 'meths': '__init__|handle'}
+{'type':'umlshape', 'id':'AddressBook', 'x':781, 'y':423, 'width':282, 'height':282, 'attrs': '__dict__|data', 'meths': '__getstate__|__setstate__|__str__|add|days_to_birthday|delete|editing_contact|find|list_contacts_with_day_of_birthday|load|save|search_by_match'}
+{'type':'umlshape', 'id':'Notes', 'x':1134, 'y':393, 'width':90, 'height':314, 'attrs': 'counter|data', 'meths': '__init__|__iter__|add|delete|edit_note|edit_tags|edit_text|find|load|pr_notes|save|save_tags|save_text|sort_notes'}
+{'type':'umlshape', 'id':'UserDict', 'x':769, 'y':20, 'width':90, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'pickle.load', 'x':1076, 'y':33, 'width':120, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'Note', 'x':1289, 'y':389, 'width':98, 'height':154, 'attrs': 'create_date|tags|text', 'meths': '__init__|__str__|add_tag'}
+{'type':'umlshape', 'id':'UserList', 'x':909, 'y':21, 'width':90, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'FileScanner', 'x':553, 'y':422, 'width':178, 'height':266, 'attrs': 'archives|audio|documents|extensions|folders|images|others|registered_extensions|unknown|video', 'meths': '__init__|get_extensions|scan'}
+{'type':'umlshape', 'id':'FileNormalizer', 'x':33, 'y':220, 'width':150, 'height':138, 'attrs': 'TRANS|TRANSLATION|UKRAINIAN_SYMBOLS', 'meths': '__init__|normalize'}
+{'type':'umlshape', 'id':'FileSorter', 'x':290, 'y':204, 'width':170, 'height':202, 'attrs': 'file_normalizer|file_scanner|folder_path', 'meths': '__init__|get_folder_objects|handle_archive|handle_file|remove_empty_folders|sort_files'}
+{'type':'umlshape', 'id':'Path', 'x':29, 'y':392, 'width':50, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'edge', 'id':'AddressBook_to_Bot', 'source':'AddressBook', 'target':'Bot', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Birthday_to_Record', 'source':'Birthday', 'target':'Record', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Notes_to_Bot', 'source':'Notes', 'target':'Bot', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Address_to_Record', 'source':'Address', 'target':'Record', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Email_to_Record', 'source':'Email', 'target':'Record', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Record_to_Bot', 'source':'Record', 'target':'Bot', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'AddressBook_to_UserDict', 'source':'AddressBook', 'target':'UserDict', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'pickle.load_to_AddressBook', 'source':'pickle.load', 'target':'AddressBook', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Notes_to_UserList', 'source':'Notes', 'target':'UserList', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'pickle.load_to_Notes', 'source':'pickle.load', 'target':'Notes', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Note_to_Notes', 'source':'Note', 'target':'Notes', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'FileNormalizer_to_FileSorter', 'source':'FileNormalizer', 'target':'FileSorter', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'FileScanner_to_FileSorter', 'source':'FileScanner', 'target':'FileSorter', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'Path_to_FileSorter', 'source':'Path', 'target':'FileSorter', 'uml_edge_type': 'composition'}
