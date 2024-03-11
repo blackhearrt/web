@@ -1,0 +1,2 @@
+[console_scripts]
+start_cli = personal_assistant_group_03.main:main

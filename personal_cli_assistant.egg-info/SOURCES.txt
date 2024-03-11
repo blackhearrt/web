@@ -1,0 +1,13 @@
+MANIFEST.in
+README.md
+setup.py
+personal_assistant_group_03/__init__.py
+personal_assistant_group_03/address_book.py
+personal_assistant_group_03/main.py
+personal_assistant_group_03/notebook.py
+personal_assistant_group_03/sorting.py
+personal_cli_assistant.egg-info/PKG-INFO
+personal_cli_assistant.egg-info/SOURCES.txt
+personal_cli_assistant.egg-info/dependency_links.txt
+personal_cli_assistant.egg-info/entry_points.txt
+personal_cli_assistant.egg-info/top_level.txt
