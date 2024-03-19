@@ -2,7 +2,7 @@ from collections import UserDict
 from datetime import date, datetime
 import pickle
 import os
-from personal_assistant_group_03.main import *
+from main import *
 
 
 class AddressBook(UserDict):

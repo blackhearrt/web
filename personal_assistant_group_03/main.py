@@ -1,9 +1,11 @@
 from datetime import date, datetime
 from abc import ABC, abstractmethod
 import re
-from personal_assistant_group_03.notebook import *
-from personal_assistant_group_03.address_book import *
-from personal_assistant_group_03.sorting import *
+from notebook import *
+from address_book import *
+from sorting import *
+
+
 
 
 class UserInterface(ABC):
@@ -58,7 +60,7 @@ class Phone:
             self.value = input("Enter phones with code: +38 plus 10 numbers after:")
             try:
                 for number in self.value.split(' '):
-                    if re.match('^\\+38\d{10}$', number):
+                    if re.match('^\\+38\\d{10}$', number):
                         self.values.append(number)
                     else:
                         raise ValueError
@@ -87,7 +89,7 @@ class Birthday:
             else:
                 self.value = input("Birthday date in format (dd/mm/yyyy) : ")
             try:
-                if re.match('^\d{2}/\d{2}/\d{4}$', self.value):
+                if re.match('^\\d{2}/\\d{2}/\\d{4}$', self.value):
                     self.value = datetime.strptime(self.value, "%d/%m/%Y")
                     break
                 elif self.value == '':
@@ -109,7 +111,7 @@ class Email:
             else:
                 self.value = input("Email: ")
             try:
-                if re.match('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', self.value):
+                if re.match('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$', self.value):
                     break
                 else:
                     raise ValueError
