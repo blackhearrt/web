@@ -4,45 +4,47 @@ import re
 from notebook import *
 from address_book import *
 from sorting import *
+from flask import Flask
+
+app = Flask(__name__)
 
 
+@app.route('/')
+# class UserInterface(ABC):
+#     @abstractmethod
+#     def display_contacts(self, contacts):
+#         pass
 
 
-class UserInterface(ABC):
-    @abstractmethod
-    def display_contacts(self, contacts):
-        pass
+#     @abstractmethod
+#     def display_notes(self, notes):
+#         pass
+
+#     @abstractmethod
+#     def display_help(self, commands):
+#         pass
 
 
-    @abstractmethod
-    def display_notes(self, notes):
-        pass
+# class ConsoleInterface(UserInterface):
+#     def display_contacts(self, contacts):
+#         print("=== Contacts ===")
+#         for contact in contacts:
+#             print(f"Name: {contact['name']}, Phone: {contact['phone']}")
+#         print()
 
-    @abstractmethod
-    def display_help(self, commands):
-        pass
+#     def display_notes(self, notes):
+#         print("=== Notes ===")
+#         for note in notes:
+#             print(f"Title: {note['title']}")
+#             print(note['content'])
+#             print()
+#         print()
 
-
-class ConsoleInterface(UserInterface):
-    def display_contacts(self, contacts):
-        print("=== Contacts ===")
-        for contact in contacts:
-            print(f"Name: {contact['name']}, Phone: {contact['phone']}")
-        print()
-
-    def display_notes(self, notes):
-        print("=== Notes ===")
-        for note in notes:
-            print(f"Title: {note['title']}")
-            print(note['content'])
-            print()
-        print()
-
-    def display_help(self, commands):
-        print("=== Available Commands ===")
-        for command, description in commands.items():
-            print(f"{command}: {description}")
-        print()
+#     def display_help(self, commands):
+#         print("=== Available Commands ===")
+#         for command, description in commands.items():
+#             print(f"{command}: {description}")
+#         print()
 
 
 class Name:
@@ -248,5 +250,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    app.run()
 
