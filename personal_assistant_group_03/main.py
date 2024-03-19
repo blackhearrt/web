@@ -10,41 +10,41 @@ app = Flask(__name__)
 
 
 @app.route('/')
-# class UserInterface(ABC):
-#     @abstractmethod
-#     def display_contacts(self, contacts):
-#         pass
+class UserInterface(ABC):
+    @abstractmethod
+    def display_contacts(self, contacts):
+        pass
 
 
-#     @abstractmethod
-#     def display_notes(self, notes):
-#         pass
+    @abstractmethod
+    def display_notes(self, notes):
+        pass
 
-#     @abstractmethod
-#     def display_help(self, commands):
-#         pass
+    @abstractmethod
+    def display_help(self, commands):
+        pass
 
 
-# class ConsoleInterface(UserInterface):
-#     def display_contacts(self, contacts):
-#         print("=== Contacts ===")
-#         for contact in contacts:
-#             print(f"Name: {contact['name']}, Phone: {contact['phone']}")
-#         print()
+class ConsoleInterface(UserInterface):
+    def display_contacts(self, contacts):
+        print("=== Contacts ===")
+        for contact in contacts:
+            print(f"Name: {contact['name']}, Phone: {contact['phone']}")
+        print()
 
-#     def display_notes(self, notes):
-#         print("=== Notes ===")
-#         for note in notes:
-#             print(f"Title: {note['title']}")
-#             print(note['content'])
-#             print()
-#         print()
+    def display_notes(self, notes):
+        print("=== Notes ===")
+        for note in notes:
+            print(f"Title: {note['title']}")
+            print(note['content'])
+            print()
+        print()
 
-#     def display_help(self, commands):
-#         print("=== Available Commands ===")
-#         for command, description in commands.items():
-#             print(f"{command}: {description}")
-#         print()
+    def display_help(self, commands):
+        print("=== Available Commands ===")
+        for command, description in commands.items():
+            print(f"{command}: {description}")
+        print()
 
 
 class Name:
@@ -250,5 +250,5 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False, host='0.0.0.0')
 
