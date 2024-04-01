@@ -2,7 +2,7 @@ import aiohttp
 import asyncio
 import json
 import sys
-
+from datetime import datetime, timedelta
 API_URL = "https://api.privatbank.ua/p24api/exchange_rates?json&date="
 
 
