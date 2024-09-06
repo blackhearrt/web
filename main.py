@@ -1,6 +1,11 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, MetaData, create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
 
 engine = create_engine('sqlite:///:memory:', echo=True)
+DBsession = sessionmaker(bind=engine)
+session = DBsession()
 metadata = MetaData()
 
 students = Table('students', metadata,
