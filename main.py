@@ -1,7 +1,5 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, MetaData, create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
 
 engine = create_engine('sqlite:///:memory:', echo=True)
 DBsession = sessionmaker(bind=engine)
@@ -32,11 +30,11 @@ subjects = Table('subjects', metadata,
     Column('teacher_name', String, ForeignKey('teachers.name')),
 )
 
-student_marks = Table('marks', metadata,
+student_marks = Table('grades', metadata,
     Column('id', Integer, primary_key=True),
     Column('name', String, ForeignKey('students.name')),
     Column('subject_name', String, ForeignKey('subjects.name')),
-    Column('mark', Integer),
+    Column('grade', Integer),
     Column('date', String),
 )
 
