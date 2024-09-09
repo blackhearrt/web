@@ -12,7 +12,7 @@ students = Table('students', metadata,
     Column('fullname', String),
 )
 
-group_table = Table('group', metadata,
+group = Table('group', metadata,
     Column('id', Integer, ForeignKey('students.id')),
     Column('student_name', String, ForeignKey('students.name')),
     

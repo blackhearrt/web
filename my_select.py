@@ -8,10 +8,12 @@ def select_1():
         .select_from(grades).join(students).group_by(students.id).order_by(desc('avg_grade')).limit(5).all()
 
 def select_2():
-    session.query()
-    pass
+    session.query(students.fullname).filter_by(grades)\
+        .select_from(grades).join(students).group_by(students.id).all().order_by(desc('avg_grade')).limit(1).all()
+    
 
 def select_3():
+    session.query()
     pass    
 
 def select_4():
