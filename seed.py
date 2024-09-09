@@ -9,47 +9,50 @@ NUMBER_SUBJECTS = 5
 NUMBER_TEACHERS = 5
 NUMBER_GRADES = 10
 
-def generate_fake_data(number_group, number_students, number_subjects, number_teachers, number_grades) -> tuple():
+def generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TEACHERS, NUMBER_GRADES) -> tuple():
     groups = []  # тут зберігатимемо компанії
     students = []  # тут зберігатимемо співробітників
     subjects = []  # тут зберігатимемо посади
     teachers = []  # тут зберігатимемо викладачів
     grades = []  # тут зберігатимемо оцінки
-    
-    '''Візьмемо три компанії з faker і помістимо їх у потрібну змінну'''
-    fake_data = faker.Faker()
 
-    # Створимо набір компаній у кількості number_companies
-    for _ in range(number_companies):
-        fake_companies.append(fake_data.company())
+    fake_data = faker.Faker(locale="uk_UA")
 
-    # Згенеруємо тепер number_employees кількість співробітників'''
-    for _ in range(number_employees):
-        fake_employees.append(fake_data.name())
+    for _ in range(NUMBER_GROUP):
+        groups.append(fake_data.land_number())
 
-    # Та number_post набір посад
-    for _ in range(number_post):
-        fake_posts.append(fake_data.job())
+    for _ in range(NUMBER_STUDENTS):
+        students.append(fake_data.name())
 
-    return fake_companies, fake_employees, fake_posts
+    for _ in range(NUMBER_SUBJECTS):
+        subjects.append(fake_data.language_name())
+
+    for _ in range(NUMBER_TEACHERS):
+        teachers.append(fake_data.name())
+
+    for _ in range(NUMBER_GRADES):
+        grades.append(fake_data.random_number())
 
 
-def prepare_data(companies, employees, posts) -> tuple():
-    for_companies = []
-    # готуємо список кортежів назв компаній
-    for company in companies:
-        for_companies.append((company, ))
+    return groups, students, subjects, teachers, grades
 
-    for_employees = []  # для таблиці employees
 
-    for emp in employees:
+def prepare_data(groups, students, subjects, teachers, grades) -> tuple():
+    for_groups = []
+    # готуємо список кортежів номерів груп
+    for group in groups:
+        for_groups.append((group, ))
+
+    for_students = []  # для таблиці students
+
+    for std in students:
         '''
         Для записів у таблицю співробітників нам потрібно додати посаду та id компанії. Компаній у нас було за замовчуванням
         NUMBER_COMPANIES, при створенні таблиці companies для поля id ми вказували INTEGER AUTOINCREMENT - тому кожен
         запис отримуватиме послідовне число збільшене на 1, починаючи з 1. Тому компанію вибираємо випадково
         у цьому діапазоні
         '''
-        for_employees.append((emp, choice(posts), randint(1, NUMBER_COMPANIES)))
+        for_students.append((std, choice(), randint(1, NUMBER_GROUP)))
 
     '''
    Подібні операції виконаємо й у таблиці payments виплати зарплат. Приймемо, що виплата зарплати у всіх компаніях
