@@ -1,4 +1,5 @@
-from sqlalchemy import select, func, text
+from sqlalchemy import select, func, text, desc
+from sqlalchemy.ext.declarative import declarative_base
 from main import *
 
 Base = declarative_base()
@@ -6,9 +7,8 @@ def select_1():
     session.query(students.fullname, func.round(func.avg(grades.grade), 2).label('avg_grade'))\
         .select_from(grades).join(students).group_by(students.id).order_by(desc('avg_grade')).limit(5).all()
 
-    pass
-
 def select_2():
+    session.query()
     pass
 
 def select_3():

@@ -30,7 +30,7 @@ subjects = Table('subjects', metadata,
     Column('teacher_name', String, ForeignKey('teachers.name')),
 )
 
-student_marks = Table('grades', metadata,
+grades = Table('grades', metadata,
     Column('id', Integer, primary_key=True),
     Column('name', String, ForeignKey('students.name')),
     Column('subject_name', String, ForeignKey('subjects.name')),
