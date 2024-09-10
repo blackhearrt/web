@@ -44,14 +44,15 @@ def generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TE
     return groups, students, subjects, teachers, grades
 
 
-def prepare_data(groups, students, subjects, teachers, grades) -> tuple:
-    for_groups = []
-    for group in groups:
-        for_groups.append((group, ))
-
+def prepare_data(students, groups, subjects, teachers, grades) -> tuple:
+    
     for_students = []  
     for std in students:
         for_students.append((std, choice(), randint(1, NUMBER_GROUP)))
+    
+    for_groups = []
+    for group in groups:
+        for_groups.append((group, randint(1, NUMBER_STUDENTS)))
 
     for_subjects = []
     for sub in subjects:
