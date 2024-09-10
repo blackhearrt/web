@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from main import students, subjects, teachers, group, grades
 
-engine = create_engine("postgresql://myuser:deadinside666@Homework7:5432/mydatabase")
+engine = create_engine("postgresql://postgres:stugnap@localhost:5432/postgres client_encoding=utf8")
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 

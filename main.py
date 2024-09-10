@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, MetaData, create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql://myuser:deadinside666@Homework7:5432/mydatabase', echo=True)
+engine = create_engine('postgresql://postgres:stugnap@localhost:5432/postgres client_encoding=utf8', echo=True)
 DBsession = sessionmaker(bind=engine)
 session = DBsession()
 metadata = MetaData()
