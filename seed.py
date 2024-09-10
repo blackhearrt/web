@@ -1,7 +1,13 @@
-from datetime import datetime
 import faker
 from random import randint, choice
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+engine = create_engine("postgresql://myuser:deadinside666@Homework7:5432/mydatabase")
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
+
 
 NUMBER_GROUP = 3
 NUMBER_STUDENTS = 30
@@ -9,10 +15,10 @@ NUMBER_SUBJECTS = 5
 NUMBER_TEACHERS = 5
 NUMBER_GRADES = 10
 
-def generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TEACHERS, NUMBER_GRADES) -> tuple():
-    groups = []  # тут зберігатимемо компанії
-    students = []  # тут зберігатимемо співробітників
-    subjects = []  # тут зберігатимемо посади
+def generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TEACHERS, NUMBER_GRADES) -> tuple:
+    groups = []  # тут зберігатимемо групи
+    students = []  # тут зберігатимемо студентів
+    subjects = []  # тут зберігатимемо предмети
     teachers = []  # тут зберігатимемо викладачів
     grades = []  # тут зберігатимемо оцінки
 
@@ -37,41 +43,32 @@ def generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TE
     return groups, students, subjects, teachers, grades
 
 
-def prepare_data(groups, students, subjects, teachers, grades) -> tuple():
+def prepare_data(groups, students, subjects, teachers, grades) -> tuple:
     for_groups = []
-    # готуємо список кортежів номерів груп
     for group in groups:
         for_groups.append((group, ))
 
-    for_students = []  # для таблиці students
-
+    for_students = []  
     for std in students:
-        '''
-        Для записів у таблицю співробітників нам потрібно додати посаду та id компанії. Компаній у нас було за замовчуванням
-        NUMBER_COMPANIES, при створенні таблиці companies для поля id ми вказували INTEGER AUTOINCREMENT - тому кожен
-        запис отримуватиме послідовне число збільшене на 1, починаючи з 1. Тому компанію вибираємо випадково
-        у цьому діапазоні
-        '''
         for_students.append((std, choice(), randint(1, NUMBER_GROUP)))
 
-    '''
-   Подібні операції виконаємо й у таблиці payments виплати зарплат. Приймемо, що виплата зарплати у всіх компаніях
-    виконувалася з 10 по 20 числа кожного місяця. Діапазон зарплат генеруватимемо від 1000 до 10000 у.о.
-    для кожного місяця, та кожного співробітника.
-    '''
-    for_payments = []
+    for_subjects = []
+    for sub in subjects:
+        for_subjects.append((sub, randint(1, NUMBER_TEACHERS)))
 
-    for month in range(1, 12 + 1):
-        # Виконуємо цикл за місяцями'''
-        payment_date = datetime(2021, month, randint(10, 20)).date()
-        for emp in range(1, NUMBER_EMPLOYESS + 1):
-            # Виконуємо цикл за кількістю співробітників
-            for_payments.append((emp, payment_date, randint(1000, 10000)))
+    for_teachers = []
+    for tch in teachers:
+        for_teachers.append((tch, randint(1, NUMBER_SUBJECTS)))
 
-    return for_companies, for_employees, for_payments
+    for_grades = []
+    for grade in grades:
+        for_grades.append((grade, randint(1, NUMBER_STUDENTS)))
+
+    return for_groups, for_students, for_subjects, for_teachers, for_grades
+ 
 
 
-def insert_data_to_db(companies, employees, payments) -> None:
+def insert_data_to_db(groups, students, subjects, teachers, grades) -> None:
     # Створимо з'єднання з нашою БД та отримаємо об'єкт курсору для маніпуляцій з даними
 
     with sqlite3.connect('salary.db') as con:
