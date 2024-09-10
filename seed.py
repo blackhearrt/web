@@ -2,6 +2,7 @@ import faker
 from random import randint, choice
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from main import students, subjects, teachers, group, grades
 
 engine = create_engine("postgresql://myuser:deadinside666@Homework7:5432/mydatabase")
 DBSession = sessionmaker(bind=engine)
@@ -69,46 +70,43 @@ def prepare_data(groups, students, subjects, teachers, grades) -> tuple:
 
 
 def insert_data_to_db(groups, students, subjects, teachers, grades) -> None:
-    # Створимо з'єднання з нашою БД та отримаємо об'єкт курсору для маніпуляцій з даними
+    try:
+        # Вставляємо дані про групи
+        for group_id in groups:
+            new_group = group(id=group_id)
+            session.add(new_group)
 
-    with sqlite3.connect('salary.db') as con:
+        # Вставляємо дані про студентів
+        for student_name, student_fullname, student_id in students:
+            new_student = students(name=student_name, fullname=student_fullname, id=student_id) 
+            session.add(new_student)
 
-        cur = con.cursor()
+        # Вставляємо дані про предмети
+        for subject_name, teacher_fullname, subjects_id in subjects:
+            new_subject = subjects(name=subject_name, teacher_name=teacher_fullname, subject_id=subjects_id) 
+            session.add(new_subject)
 
-        '''Заповнюємо таблицю компаній. І створюємо скрипт для вставлення, де змінні, які вставлятимемо, відзначимо
-        знаком заповнювача (?) '''
+        # Вставляємо дані про викладачів
+        for teacher_name, teacher_fullname, teacher_id in teachers:
+            new_teacher = teachers(name=teacher_name, fullname=teacher_fullname, id=teacher_id) 
+            session.add(new_teacher)
 
-        sql_to_companies = """INSERT INTO companies(company_name)
-                               VALUES (?)"""
+        # Вставляємо дані про оцінки
+        for student_fullname, subject_name, date, grade_value in grades:
+            new_grade = grades(student_name=student_fullname, subject_name=subject_name, date_of=date, grade=grade_value)
+            session.add(new_grade)
 
-        '''Для вставлення відразу всіх даних скористаємося методом executemany курсора. Першим параметром буде текст
-        скрипта, а другим - дані (список кортежів).'''
+        # Зберігаємо зміни у БД
+        session.commit()
 
-        cur.executemany(sql_to_companies, companies)
+    except Exception as e:
+        session.rollback()  # У разі помилки відкатуємо зміни
+        print(f"Помилка: {e}")
 
-        # Далі вставляємо дані про співробітників. Напишемо для нього скрипт і вкажемо змінні
-
-        sql_to_employees = """INSERT INTO employees(employee, post, company_id)
-                               VALUES (?, ?, ?)"""
-
-        # Дані були підготовлені заздалегідь, тому просто передаємо їх у функцію
-
-        cur.executemany(sql_to_employees, employees)
-
-        # Останньою заповнюємо таблицю із зарплатами
-
-        sql_to_payments = """INSERT INTO payments(employee_id, date_of, total)
-                              VALUES (?, ?, ?)"""
-
-        # Вставляємо дані про зарплати
-
-        cur.executemany(sql_to_payments, payments)
-
-        # Фіксуємо наші зміни в БД
-
-        con.commit()
+    finally:
+        session.close()  # Завершуємо сесію
 
 
 if __name__ == "__main__":
-    companies, employees, posts = prepare_data(*generate_fake_data(NUMBER_COMPANIES, NUMBER_EMPLOYESS, NUMBER_POST))
-    insert_data_to_db(companies, employees, posts)
+    groups, students, subjects, teachers, grades = prepare_data(*generate_fake_data(NUMBER_GROUP, NUMBER_STUDENTS, NUMBER_SUBJECTS, NUMBER_TEACHERS))
+    insert_data_to_db(groups, students, subjects, teachers, grades)
