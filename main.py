@@ -13,7 +13,7 @@ students = Table('students', metadata,
 )
 
 group = Table('group', metadata,
-    Column('id', Integer, ForeignKey('students.id')),
+    Column('id', Integer, primary_key=True),
     Column('student_name', String, ForeignKey('students.name')),
     
 )
@@ -27,7 +27,7 @@ teachers = Table('teachers', metadata,
 subjects = Table('subjects', metadata,
     Column('id', Integer, primary_key=True),
     Column('name', String),
-    Column('teacher_name', String, ForeignKey('teachers.name')),
+    Column('teacher_name', String, ForeignKey('teachers.fullname')),
 )
 
 grades = Table('grades', metadata,
