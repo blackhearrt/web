@@ -31,8 +31,7 @@ subjects = Table('subjects', metadata,
 )
 
 grades = Table('grades', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('name', String, ForeignKey('students.name')),
+    Column('name_of_student', String, ForeignKey('students.name')),
     Column('subject_name', String, ForeignKey('subjects.name')),
     Column('grade', Integer),
     Column('date', String),
