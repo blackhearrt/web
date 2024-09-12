@@ -13,26 +13,54 @@ def select_2():
     
 
 def select_3():
-    session.query()
-    pass    
+    session.query(
+        group.c.id.label('group_id'),
+        func.round(func.avg(grades.c.grade_value), 2).label('avg_grade')
+    ).join(students, students.c.name == group.c.student_name)\
+     .join(grades, grades.c.name_of_student == students.c.name)\
+     .filter(grades.c.subject_name == subjects.name, group.c.id == group.id)\
+     .group_by(group.c.id).all()
+   
 
 def select_4():
-    pass    
+    session.query(
+        func.round(func.avg(grades.c.grade_value), 2).label('avg_grade')
+    ).all()
+     
 
 def select_5():
-    pass
+    session.query(
+        subjects.c.name.label('subject')
+    ).filter(subjects.c.teacher_name == teachers.fullname).all()
 
 def select_6():
-    pass
+    session.query(
+        students.c.fullname
+    ).join(group, group.c.student_name == students.c.name)\
+     .filter(group.c.id == group.id).all()
 
 def select_7():
-    pass
+    session.query(
+        students.c.fullname,
+        grades.c.grade_value
+    ).join(group, group.c.student_name == students.c.name)\
+     .join(grades, grades.c.name_of_student == students.c.name)\
+     .filter(group.c.id == group.id, grades.c.subject_name == subjects.name).all()
 
 def select_8():
-    pass
+    session.query(
+        func.round(func.avg(grades.c.grade_value), 2).label('avg_grade')
+    ).join(subjects, subjects.c.name == grades.c.subject_name)\
+     .filter(subjects.c.teacher_name == teachers.fullname).all()
 
 def select_9():
-    pass
+    session.query(
+        subjects.c.name.label('course')
+    ).join(grades, grades.c.subject_name == subjects.c.name)\
+     .filter(grades.c.students_name == students.fullname).all()
 
 def select_10():
-    pass
+    session.query(
+        subjects.c.name.label('course')
+    ).join(grades, grades.c.subject_name == subjects.c.name)\
+     .filter(grades.c.students_name == students.fullname, subjects.c.teacher_name == teachers.fullname).all()
