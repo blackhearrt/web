@@ -1,0 +1,99 @@
+Metadata-Version: 2.1
+Name: redis-lru
+Version: 0.1.2
+Summary: LRU cache for Python. Use Redis as backend. Provides a dictionary-like object as well as a method decorator.
+Home-page: https://github.com/leohowell/redis-lru
+Author: Leo Howell
+Author-email: leohowell.com@gmail.com
+License: BSD
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.4
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: redis
+
+redis-lru
+=========
+
+Installation
+------------
+
+.. code-block:: bash
+
+    pip install redis-lru
+
+
+Introduction
+------------
+
+It's often useful to have an lru redis cache. Of course, it's also desirable not to have the cache grow too large, and cache expiration is often desirable.
+This module provides such a cache.
+
+redis-lru supports CPython 3.4+
+
+For the most part, you can just use it like this:
+
+.. code-block:: python
+
+    import redis
+    from redis_lru import RedisLRU
+
+    client = redis.StrictRedis()
+    cache = RedisLRU(client)
+
+    @cache
+    def f(x):
+        print("Calling f({})".format(x))
+        return x
+
+
+    f(3) # This will print "Calling f(3)", will return 3
+    f(3) # This will not print anything, but will return 3 (unless 15 minutes have passed between the first and second function call).
+
+Additionally a datetime.time object can be provided to clear the cache at a specific time of the day:
+
+.. code-block:: python
+
+    @cache(expire_on=datetime.time(hour=8)) # clear at 08:00 o'clock
+    def b(x):
+        print("Calling f({})".format(x))
+        return x
+
+
+0.1.2
+=====
+- Fixed support of non-hashable values
+
+
+0.1.1
+=====
+- Added new `expire_on` parameter for @cache & RedisLRU support set ttl by `datetime.time` objects
+
+0.1.0
+=====
+- Refactor RedisLRU class for a clean and neat implement.
+- Stop supporting Python 2.
+- Fix bugs in test cases.
+- Added clean cache option at process exit.
+
+0.0.4
+=====
+- Generate `unique_key` automatically so your may never get touch this argument.
+- Improved exception processing, now you won't receive any exception by default.
+- Added unittest for `redis_lru_cache` decorator and `RedisLRUCacheDict`
+- Added more type of cache usage statistic type like `POP`, `DEL` etc.
+- Added changes log.
+
+
